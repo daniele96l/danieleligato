@@ -1,5 +1,12 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Award } from 'lucide-react';
+import { Briefcase, Award, ChevronRight } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 const experiences = [
   {
@@ -25,6 +32,17 @@ const experiences = [
       'Won the AI project of the year',
     ],
     award: true,
+    projects: [
+      {
+        title: 'Energy Load & Demand Forecasting',
+        description: 'A project for forecasting energy load and energy demand for the German market, using LSTM neural networks and ARIMA statistical models.',
+      },
+      {
+        title: 'Sales Forecasting (T-Mobile Project of the Year)',
+        description: 'Award-winning project using ensemble methods and hierarchical reconciliation to forecast more than 30,000 time series for sales predictions.',
+        isAward: true,
+      },
+    ],
   },
   {
     title: 'Junior Data Scientist',
@@ -80,7 +98,42 @@ export const WorkExperience = () => {
               <div className="mb-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="font-heading text-lg font-semibold">{exp.title}</h3>
-                  {exp.award && (
+                  {exp.award && exp.projects ? (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button className="inline-flex items-center gap-1 text-xs bg-foreground text-background px-2 py-0.5 rounded hover:bg-foreground/80 transition-colors cursor-pointer">
+                          <Award className="w-3 h-3" />
+                          Award Winner
+                          <ChevronRight className="w-3 h-3" />
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-lg">
+                        <DialogHeader>
+                          <DialogTitle className="flex items-center gap-2">
+                            <Award className="w-5 h-5" />
+                            Featured Projects at {exp.company}
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 mt-4">
+                          {exp.projects.map((project, i) => (
+                            <div key={i} className="p-4 rounded-lg bg-muted/50 border border-border">
+                              <h4 className="font-semibold flex items-center gap-2">
+                                {project.title}
+                                {project.isAward && (
+                                  <span className="text-xs bg-foreground text-background px-1.5 py-0.5 rounded">
+                                    🏆 Winner
+                                  </span>
+                                )}
+                              </h4>
+                              <p className="text-sm text-muted-foreground mt-2">
+                                {project.description}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  ) : exp.award && (
                     <span className="inline-flex items-center gap-1 text-xs bg-foreground text-background px-2 py-0.5 rounded">
                       <Award className="w-3 h-3" />
                       Award Winner
