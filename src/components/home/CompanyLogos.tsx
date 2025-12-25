@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 const companies = [
   'Oxford University',
   'Politecnico di Milano',
+  'FNZ',
   'Analytical Platform',
   'T-Mobile',
 ];
