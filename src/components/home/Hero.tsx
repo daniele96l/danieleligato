@@ -44,9 +44,9 @@ export const Hero = () => {
             className="flex flex-wrap gap-4"
           >
             <Button size="lg" asChild className="group">
-              <Link to="/about">
-                👨‍💻 About me
-              </Link>
+              <a href="#contact">
+                👨‍💻 Contact me
+              </a>
             </Button>
             <Button size="lg" variant="outline" asChild className="group">
               <a href="#experience">

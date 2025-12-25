@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 
 const navItems = [
   { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
 ];
 
 export const Header = () => {
