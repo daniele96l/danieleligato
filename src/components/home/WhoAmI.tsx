@@ -1,92 +1,73 @@
 import { motion } from 'framer-motion';
-import { MapPin, Globe, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 export const WhoAmI = () => {
   return (
-    <section className="py-24">
+    <section className="py-24 border-b border-border">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
-              Who am <span className="gradient-text">I</span>?
+            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
+              Who am I?
             </h2>
             
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              I'm a Computer Engineer currently working in the Czech Republic as a{' '}
-              <span className="text-foreground font-medium">Data Scientist</span>.
+              I'm a Computer Engineer currently working in the Czech Republic as a 
+              Data Scientist.
             </p>
             
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              And if you haven't noticed by my vigorous hand movements while I talk, 
-              I'm Italian 🇮🇹. This website is my personal portfolio and a manifesto 
-              of my life, beliefs, and the cool stuff I do and find online.
+              And if you haven't noticed by my vigorous hand movements while I talk 
+              (you are reading, so you can't see me now 🤌), I'm Italian 🇮🇹.
             </p>
 
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <div className="p-2 rounded-lg bg-secondary">
-                  <Briefcase className="w-5 h-5 text-primary" />
-                </div>
-                <span>Data Scientist @ T-Mobile</span>
-              </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <div className="p-2 rounded-lg bg-secondary">
-                  <MapPin className="w-5 h-5 text-primary" />
-                </div>
-                <span>Based in Brno, Czechia</span>
-              </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <div className="p-2 rounded-lg bg-secondary">
-                  <Globe className="w-5 h-5 text-primary" />
-                </div>
-                <span>Lived in Italy, Portugal, Poland, Czechia</span>
-              </div>
-            </div>
+            <p className="text-muted-foreground mb-8">
+              This website doesn't just aim to be my personal portfolio but also a 
+              general manifesto of my life, my beliefs, and the cool stuff I do and 
+              find online.
+            </p>
 
-            <Button asChild>
-              <Link to="/about">Learn More About Me</Link>
+            <Button variant="outline" asChild>
+              <Link to="/about">Learn more about me</Link>
             </Button>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+            transition={{ delay: 0.1 }}
+            className="border border-border rounded-lg p-8"
           >
-            <div className="relative w-full aspect-square max-w-md mx-auto">
-              {/* Decorative background */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl" />
-              
-              {/* Main card */}
-              <div className="relative glass rounded-3xl p-8 h-full flex flex-col justify-center">
-                <div className="text-6xl mb-6">🧑‍💻</div>
-                <h3 className="font-heading text-2xl font-semibold mb-4">Let's grow together</h3>
-                <p className="text-muted-foreground mb-6">
-                  Think what I do is cool? I'm always open to working on freelancing 
-                  jobs or fancy business ideas.
-                </p>
-                <div className="flex gap-4">
-                  <Button variant="outline" size="sm" asChild>
-                    <a href="https://www.linkedin.com/in/its-me-dani/" target="_blank" rel="noopener noreferrer">
-                      💼 LinkedIn
-                    </a>
-                  </Button>
-                  <Button variant="outline" size="sm" asChild>
-                    <a href="mailto:daniele96ligato@gmail.com">
-                      📧 Email
-                    </a>
-                  </Button>
-                </div>
-              </div>
+            <h3 className="font-heading text-xl font-semibold mb-4">Let's grow together</h3>
+            <p className="text-muted-foreground mb-6">
+              Do you think what I do is cool? I'm always open to working together 
+              on freelancing jobs or fancy business ideas.
+            </p>
+            <p className="text-muted-foreground mb-6">
+              Below, you can find my contacts. Write to me! Or send me a message 
+              in a bottle, as you prefer 😉
+            </p>
+            <div className="space-y-2">
+              <a 
+                href="https://www.linkedin.com/in/its-me-dani/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-foreground hover:underline"
+              >
+                💼 LinkedIn
+              </a>
+              <a 
+                href="mailto:daniele96ligato@gmail.com"
+                className="block text-foreground hover:underline"
+              >
+                📧 Email
+              </a>
             </div>
           </motion.div>
         </div>
