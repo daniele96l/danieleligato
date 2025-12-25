@@ -35,11 +35,25 @@ const experiences = [
     projects: [
       {
         title: 'Energy Load & Demand Forecasting',
-        description: 'A project for forecasting energy load and energy demand for the German market, using LSTM neural networks and ARIMA statistical models.',
+        description: 'Forecasting energy load and demand for the German energy market to optimize grid operations and trading strategies.',
+        techStack: ['Python', 'LSTM', 'ARIMA', 'TensorFlow', 'Pandas'],
+        details: [
+          'Built LSTM neural networks for capturing long-term temporal dependencies in energy consumption patterns',
+          'Implemented ARIMA models for short-term forecasting with seasonal decomposition',
+          'Processed and engineered features from weather data, historical load, and calendar effects',
+          'Achieved MAPE < 3% on day-ahead forecasts',
+        ],
       },
       {
-        title: 'Sales Forecasting (T-Mobile Project of the Year)',
-        description: 'Award-winning project using ensemble methods and hierarchical reconciliation to forecast more than 30,000 time series for sales predictions.',
+        title: 'Sales Forecasting',
+        description: 'Award-winning hierarchical forecasting system for T-Mobile\'s sales predictions across all product categories and regions.',
+        techStack: ['Python', 'XGBoost', 'LightGBM', 'Hierarchical Reconciliation', 'GCP', 'Docker'],
+        details: [
+          'Designed ensemble models combining XGBoost, LightGBM, and statistical methods',
+          'Implemented hierarchical reconciliation (bottom-up, top-down, optimal) to ensure forecast coherence across 30,000+ time series',
+          'Built automated retraining pipelines with CI/CD on Google Cloud Platform',
+          'Achieved 98% precision on revenue forecasts, winning T-Mobile AI Project of the Year',
+        ],
         isAward: true,
       },
     ],
@@ -128,6 +142,27 @@ export const WorkExperience = () => {
                               <p className="text-sm text-muted-foreground mt-2">
                                 {project.description}
                               </p>
+                              
+                              {project.techStack && (
+                                <div className="flex flex-wrap gap-1.5 mt-3">
+                                  {project.techStack.map((tech, j) => (
+                                    <span key={j} className="text-xs px-2 py-0.5 bg-background border border-border rounded">
+                                      {tech}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                              
+                              {project.details && (
+                                <ul className="mt-3 space-y-1.5">
+                                  {project.details.map((detail, j) => (
+                                    <li key={j} className="text-xs text-muted-foreground flex items-start gap-2">
+                                      <span className="text-foreground mt-0.5">→</span>
+                                      <span>{detail}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
                             </div>
                           ))}
                         </div>
