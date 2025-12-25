@@ -45,10 +45,6 @@ export const Hero = () => {
               <span className="w-2 h-2 bg-foreground rounded-full" />
               17k+ users on my SaaS
             </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-foreground rounded-full" />
-              AI Award Winner
-            </span>
           </motion.div>
 
           <motion.p
