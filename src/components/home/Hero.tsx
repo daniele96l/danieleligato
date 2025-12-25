@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+
+const techStack = [
+  'Python', 'SQL', 'C#', 'Scikit-learn', 'PyTorch', 'Keras', 
+  'Pandas', 'NumPy', 'Docker', 'Kubernetes', 'GCP', 'Git'
+];
 
 export const Hero = () => {
   return (
@@ -27,11 +31,31 @@ export const Hero = () => {
             a passion for AI and Machine Learning.
           </motion.p>
 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex flex-wrap gap-4 mb-6 text-sm text-muted-foreground"
+          >
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-foreground rounded-full" />
+              5+ years experience
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-foreground rounded-full" />
+              17k+ users on my SaaS
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-foreground rounded-full" />
+              AI Award Winner
+            </span>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-muted-foreground mb-10"
+            className="text-lg text-muted-foreground mb-8"
           >
             Italian engineer with a Master's from Polytechnic of Milan, currently building ML models 
             at T-Mobile (and winning awards for it 🏆). I also run Backtes.to, a fintech platform 
@@ -42,7 +66,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap gap-4 mb-10"
           >
             <Button size="lg" asChild className="group">
               <a href="#experience">
@@ -58,25 +82,36 @@ export const Hero = () => {
                 📧 Contact
               </a>
             </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-8"
-          >
             <a
               href="https://github.com/daniele96l"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center px-4 text-muted-foreground hover:text-foreground transition-colors"
             >
-              🧑‍💻 My Github <ArrowRight className="w-4 h-4 ml-2" />
+              🧑‍💻 Github <ArrowRight className="w-4 h-4 ml-2" />
             </a>
           </motion.div>
         </div>
       </div>
+
+      {/* Sliding Tech Stack */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-8 overflow-hidden"
+      >
+        <div className="flex animate-scroll">
+          {[...techStack, ...techStack].map((tech, index) => (
+            <span
+              key={index}
+              className="flex-shrink-0 px-6 py-2 mx-2 text-sm text-muted-foreground border border-border rounded-full whitespace-nowrap"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 };
