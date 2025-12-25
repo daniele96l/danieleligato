@@ -35,13 +35,21 @@ const experiences = [
     projects: [
       {
         title: 'Energy Load & Demand Forecasting',
-        description: 'Forecasting energy load and demand for the German energy market to optimize grid operations and trading strategies.',
-        techStack: ['Python', 'LSTM', 'ARIMA', 'TensorFlow', 'Pandas'],
+        description: 'Forecasting primary control reserve (PRL) prices and energy demand for the German energy market to optimize grid operations and trading strategies.',
+        techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
         details: [
-          'Built LSTM neural networks for capturing long-term temporal dependencies in energy consumption patterns',
-          'Implemented ARIMA models for short-term forecasting with seasonal decomposition',
-          'Processed and engineered features from weather data, historical load, and calendar effects',
-          'Achieved MAPE < 3% on day-ahead forecasts',
+          'Engineered 17+ dynamic features including temperature trends, precipitation patterns, and rolling averages',
+          'Key exogenous factors: DA-market price spreads, German-Austrian and French market prices, load forecasts, and planned unavailable capacity',
+          'ANN with expanding training window outperformed naive forecast and SARIMAX approaches',
+          'Analyzed impact of battery storage flexibility on price spreads and PRL pricing',
+        ],
+        features: [
+          'precipitation', 'temperature', 'monthly_avg_temperature', 'temperature_trend',
+          'hot_days', 'cold_days', 'lagged_temperature_1', 'rolling_avg_temperature'
+        ],
+        links: [
+          { label: 'FFE Project', url: 'https://www.ffe.de/projekte/preisprognose-primaerregelleistung/' },
+          { label: 'Research Paper', url: 'https://www.econstor.eu/bitstream/10419/230238/1/for.2693.pdf' },
         ],
       },
       {
@@ -162,6 +170,35 @@ export const WorkExperience = () => {
                                     </li>
                                   ))}
                                 </ul>
+                              )}
+
+                              {project.features && (
+                                <div className="mt-3">
+                                  <p className="text-xs text-muted-foreground mb-1.5">Key Features:</p>
+                                  <div className="flex flex-wrap gap-1">
+                                    {project.features.map((feature, j) => (
+                                      <span key={j} className="text-[10px] px-1.5 py-0.5 bg-muted text-muted-foreground rounded">
+                                        {feature}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {project.links && (
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                  {project.links.map((link, j) => (
+                                    <a
+                                      key={j}
+                                      href={link.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-xs text-foreground underline underline-offset-2 hover:text-muted-foreground transition-colors"
+                                    >
+                                      {link.label} ↗
+                                    </a>
+                                  ))}
+                                </div>
                               )}
                             </div>
                           ))}
