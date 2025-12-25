@@ -34,10 +34,10 @@ const experiences = [
     award: true,
     projects: [
       {
-        title: 'Energy Load & Demand Forecasting',
-        subtitle: 'German Energy Market Price Prediction',
-        problem: 'Primary Control Reserve (PRL) is the fastest-responding grid balancing service — power plants must react within 30 seconds to stabilize grid frequency. Accurate PRL price forecasting enables energy traders and grid operators to optimize bidding strategies, reduce operational costs, and maximize revenue from battery storage assets.',
-        approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: previous auction prices, German-Austrian & French market prices, load forecasts, and planned unavailable capacity.',
+        title: 'Energy Price & Load Forecasting',
+        subtitle: 'Battery Storage Optimization',
+        problem: 'Forecast electricity prices and grid load to optimize when to charge client batteries — buying and storing energy when prices are low, then using or selling when prices peak. This maximizes cost savings and revenue for battery storage assets.',
+        approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: day-ahead market prices, German-Austrian & French market prices, load forecasts, and planned unavailable capacity.',
         techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
         features: [
           'Weather: temperature trends, precipitation, hot/cold days',
@@ -45,8 +45,8 @@ const experiences = [
           'Cross-market price spreads',
         ],
         keyInsights: [
-          'High day-ahead market spreads → high opportunity costs for battery storage → elevated PRL prices',
-          'Flexibility in "Electric Storage" scenarios reduces price spreads by 30%+',
+          'High day-ahead market spreads = high opportunity for battery arbitrage',
+          'Flexibility in storage scenarios reduces price spreads by 30%+',
           'Simpler models outperformed complex ones — avoiding overtraining was key',
         ],
         links: [
