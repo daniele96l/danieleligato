@@ -33,8 +33,9 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground mb-10"
           >
-            Take a look at my projects and work experience below, plus the cool stuff 
-            I find online and share here.
+            Italian engineer with a Master's from Polytechnic of Milan, currently building ML models 
+            at T-Mobile (and winning awards for it 🏆). I also run Backtes.to, a fintech platform 
+            serving 17k+ users. Always up for interesting collaborations!
           </motion.p>
 
           <motion.div
@@ -44,17 +45,16 @@ export const Hero = () => {
             className="flex flex-wrap gap-4"
           >
             <Button size="lg" asChild className="group">
-              <a href="#contact">
-                👨‍💻 Contact me
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="group">
               <a href="#experience">
                 💼 Experience
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild className="group">
-              <a href="#contact">
+              <a 
+                href="https://www.linkedin.com/in/its-me-dani/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 📧 Contact
               </a>
             </Button>
