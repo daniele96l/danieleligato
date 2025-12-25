@@ -35,14 +35,19 @@ const experiences = [
     projects: [
       {
         title: 'Energy Load & Demand Forecasting',
-        subtitle: 'German Energy Market',
-        problem: 'Predict primary control reserve (PRL) prices to optimize grid operations and energy trading strategies.',
-        approach: 'ANN with expanding training window, outperforming SARIMAX and naive forecasts.',
+        subtitle: 'German Energy Market Price Prediction',
+        problem: 'Primary Control Reserve (PRL) is the fastest-responding grid balancing service — power plants must react within 30 seconds to stabilize grid frequency. Accurate PRL price forecasting enables energy traders and grid operators to optimize bidding strategies, reduce operational costs, and maximize revenue from battery storage assets.',
+        approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: previous auction prices, German-Austrian & French market prices, load forecasts, and planned unavailable capacity.',
         techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
+        features: [
+          'Weather: temperature trends, precipitation, hot/cold days',
+          'Lagged variables & rolling averages',
+          'Cross-market price spreads',
+        ],
         keyInsights: [
-          'High DA-market spreads → high opportunity costs for battery storage → high PRL prices',
-          'Weather features (temperature trends, precipitation) are strong predictors',
-          'Flexibility in storage scenarios reduces price spreads significantly',
+          'High day-ahead market spreads → high opportunity costs for battery storage → elevated PRL prices',
+          'Flexibility in "Electric Storage" scenarios reduces price spreads by 30%+',
+          'Simpler models outperformed complex ones — avoiding overtraining was key',
         ],
         links: [
           { label: 'FFE Project', url: 'https://www.ffe.de/projekte/preisprognose-primaerregelleistung/' },
@@ -168,6 +173,21 @@ export const WorkExperience = () => {
                                       </span>
                                     ))}
                                   </div>
+                                </div>
+                              )}
+
+                              {/* Features */}
+                              {project.features && (
+                                <div className="mb-4">
+                                  <p className="text-xs font-medium text-foreground uppercase tracking-wider mb-2">Key Features</p>
+                                  <ul className="space-y-1">
+                                    {project.features.map((feature, j) => (
+                                      <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
+                                        <span className="text-foreground">→</span>
+                                        <span>{feature}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
                                 </div>
                               )}
 
