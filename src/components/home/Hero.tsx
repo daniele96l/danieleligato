@@ -49,14 +49,14 @@ export const Hero = () => {
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="group">
-              <Link to="/portfolio">
-                💻 Portfolio
-              </Link>
+              <a href="#experience">
+                💼 Experience
+              </a>
             </Button>
             <Button size="lg" variant="outline" asChild className="group">
-              <Link to="/apps">
-                ⬇️ All my apps
-              </Link>
+              <a href="#contact">
+                📧 Contact
+              </a>
             </Button>
           </motion.div>
 

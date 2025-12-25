@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 export const WhoAmI = () => {
   return (
-    <section className="py-24 border-b border-border">
+    <section id="contact" className="py-24 border-b border-border">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16">
           <motion.div
