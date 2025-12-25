@@ -35,17 +35,14 @@ const experiences = [
     projects: [
       {
         title: 'Energy Load & Demand Forecasting',
-        description: 'Forecasting primary control reserve (PRL) prices and energy demand for the German energy market to optimize grid operations and trading strategies.',
+        subtitle: 'German Energy Market',
+        problem: 'Predict primary control reserve (PRL) prices to optimize grid operations and energy trading strategies.',
+        approach: 'ANN with expanding training window, outperforming SARIMAX and naive forecasts.',
         techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
-        details: [
-          'Engineered 17+ dynamic features including temperature trends, precipitation patterns, and rolling averages',
-          'Key exogenous factors: DA-market price spreads, German-Austrian and French market prices, load forecasts, and planned unavailable capacity',
-          'ANN with expanding training window outperformed naive forecast and SARIMAX approaches',
-          'Analyzed impact of battery storage flexibility on price spreads and PRL pricing',
-        ],
-        features: [
-          'precipitation', 'temperature', 'monthly_avg_temperature', 'temperature_trend',
-          'hot_days', 'cold_days', 'lagged_temperature_1', 'rolling_avg_temperature'
+        keyInsights: [
+          'High DA-market spreads → high opportunity costs for battery storage → high PRL prices',
+          'Weather features (temperature trends, precipitation) are strong predictors',
+          'Flexibility in storage scenarios reduces price spreads significantly',
         ],
         links: [
           { label: 'FFE Project', url: 'https://www.ffe.de/projekte/preisprognose-primaerregelleistung/' },
@@ -54,13 +51,14 @@ const experiences = [
       },
       {
         title: 'Sales Forecasting',
-        description: 'Award-winning hierarchical forecasting system for T-Mobile\'s sales predictions across all product categories and regions.',
-        techStack: ['Python', 'XGBoost', 'LightGBM', 'Hierarchical Reconciliation', 'GCP', 'Docker'],
-        details: [
-          'Designed ensemble models combining XGBoost, LightGBM, and statistical methods',
-          'Implemented hierarchical reconciliation (bottom-up, top-down, optimal) to ensure forecast coherence across 30,000+ time series',
-          'Built automated retraining pipelines with CI/CD on Google Cloud Platform',
-          'Achieved 98% precision on revenue forecasts, winning T-Mobile AI Project of the Year',
+        subtitle: 'T-Mobile Project of the Year 🏆',
+        problem: 'Forecast 30,000+ time series across all product categories and regions with hierarchical consistency.',
+        approach: 'Ensemble models (XGBoost, LightGBM) with hierarchical reconciliation for coherent forecasts.',
+        techStack: ['Python', 'XGBoost', 'LightGBM', 'GCP', 'Docker', 'CI/CD'],
+        keyInsights: [
+          'Hierarchical reconciliation ensures forecasts sum correctly across levels',
+          'Automated retraining pipelines on GCP for production stability',
+          'Achieved 98% precision on revenue forecasts',
         ],
         isAward: true,
       },
@@ -136,68 +134,74 @@ export const WorkExperience = () => {
                             Featured Projects at {exp.company}
                           </DialogTitle>
                         </DialogHeader>
-                        <div className="space-y-4 mt-4">
+                        <div className="space-y-6 mt-4 max-h-[60vh] overflow-y-auto pr-2">
                           {exp.projects.map((project, i) => (
-                            <div key={i} className="p-4 rounded-lg bg-muted/50 border border-border">
-                              <h4 className="font-semibold flex items-center gap-2">
-                                {project.title}
-                                {project.isAward && (
-                                  <span className="text-xs bg-foreground text-background px-1.5 py-0.5 rounded">
-                                    🏆 Winner
-                                  </span>
+                            <div key={i} className="p-5 rounded-lg bg-muted/30 border border-border">
+                              {/* Header */}
+                              <div className="mb-4">
+                                <h4 className="font-semibold text-lg">{project.title}</h4>
+                                {project.subtitle && (
+                                  <p className="text-sm text-muted-foreground">{project.subtitle}</p>
                                 )}
-                              </h4>
-                              <p className="text-sm text-muted-foreground mt-2">
-                                {project.description}
-                              </p>
-                              
-                              {project.techStack && (
-                                <div className="flex flex-wrap gap-1.5 mt-3">
-                                  {project.techStack.map((tech, j) => (
-                                    <span key={j} className="text-xs px-2 py-0.5 bg-background border border-border rounded">
-                                      {tech}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                              
-                              {project.details && (
-                                <ul className="mt-3 space-y-1.5">
-                                  {project.details.map((detail, j) => (
-                                    <li key={j} className="text-xs text-muted-foreground flex items-start gap-2">
-                                      <span className="text-foreground mt-0.5">→</span>
-                                      <span>{detail}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                              </div>
 
-                              {project.features && (
-                                <div className="mt-3">
-                                  <p className="text-xs text-muted-foreground mb-1.5">Key Features:</p>
-                                  <div className="flex flex-wrap gap-1">
-                                    {project.features.map((feature, j) => (
-                                      <span key={j} className="text-[10px] px-1.5 py-0.5 bg-muted text-muted-foreground rounded">
-                                        {feature}
+                              {/* Problem & Approach */}
+                              <div className="space-y-3 mb-4">
+                                <div>
+                                  <p className="text-xs font-medium text-foreground uppercase tracking-wider mb-1">Problem</p>
+                                  <p className="text-sm text-muted-foreground">{project.problem}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs font-medium text-foreground uppercase tracking-wider mb-1">Approach</p>
+                                  <p className="text-sm text-muted-foreground">{project.approach}</p>
+                                </div>
+                              </div>
+
+                              {/* Tech Stack */}
+                              {project.techStack && (
+                                <div className="mb-4">
+                                  <p className="text-xs font-medium text-foreground uppercase tracking-wider mb-2">Tech Stack</p>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {project.techStack.map((tech, j) => (
+                                      <span key={j} className="text-xs px-2 py-1 bg-background border border-border rounded-md">
+                                        {tech}
                                       </span>
                                     ))}
                                   </div>
                                 </div>
                               )}
 
-                              {project.links && (
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                  {project.links.map((link, j) => (
-                                    <a
-                                      key={j}
-                                      href={link.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-xs text-foreground underline underline-offset-2 hover:text-muted-foreground transition-colors"
-                                    >
-                                      {link.label} ↗
-                                    </a>
-                                  ))}
+                              {/* Key Insights */}
+                              {project.keyInsights && (
+                                <div className="mb-4">
+                                  <p className="text-xs font-medium text-foreground uppercase tracking-wider mb-2">Key Insights</p>
+                                  <ul className="space-y-2">
+                                    {project.keyInsights.map((insight, j) => (
+                                      <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
+                                        <span className="text-foreground">•</span>
+                                        <span>{insight}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {/* Links */}
+                              {project.links && project.links.length > 0 && (
+                                <div className="pt-3 border-t border-border">
+                                  <div className="flex flex-wrap gap-3">
+                                    {project.links.map((link, j) => (
+                                      <a
+                                        key={j}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1"
+                                      >
+                                        {link.label} <span className="text-xs">↗</span>
+                                      </a>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
                             </div>
