@@ -1,0 +1,248 @@
+# Cursor Rules for Daniele Ligato Portfolio
+
+## Project Overview
+This is a **frontend-only** React portfolio website. It's a Single Page Application (SPA) with no backend server or database. All content is static and embedded in the code. Built with TypeScript, React, Vite, and Tailwind CSS.
+
+## Entry Point & Execution Flow
+
+### Execution Order:
+1. **`index.html`** - Browser loads this first
+   - Contains `<div id="root"></div>` where React renders
+   - Has script tag: `<script type="module" src="/src/main.tsx"></script>`
+
+2. **`src/main.tsx`** - This is the "main" function entry point
+   - Uses `createRoot(document.getElementById("root")!)` to mount React
+   - Renders `<App />` component: `.render(<App />)`
+   - Imports CSS: `import "./index.css"`
+
+3. **`src/App.tsx`** - Root React component
+   - Sets up all providers: QueryClientProvider, TooltipProvider, BrowserRouter
+   - Defines routes: `/` → Index, `*` → NotFound
+   - This is where the React component tree starts
+
+4. **`src/pages/Index.tsx`** - Home page component
+   - Renders `<Layout>` wrapper
+   - Contains: Hero, CompanyLogos, WorkExperience, Education, TechStack
+
+## File Structure
+
+```
+/
+├── index.html                 # HTML entry point
+├── vite.config.ts            # Vite build configuration
+├── package.json              # Dependencies and scripts
+├── tsconfig.json             # TypeScript configuration
+├── tailwind.config.ts        # Tailwind CSS configuration
+├── vercel.json               # Vercel deployment config
+└── src/
+    ├── main.tsx              # JavaScript entry point (renders App)
+    ├── App.tsx               # Root React component (routing, providers)
+    ├── index.css             # Global styles + Tailwind directives
+    ├── vite-env.d.ts         # Vite type definitions
+    │
+    ├── pages/                # Page components
+    │   ├── Index.tsx         # Home page
+    │   └── NotFound.tsx      # 404 page
+    │
+    ├── components/           # React components
+    │   ├── layout/           # Layout components
+    │   │   ├── Layout.tsx    # Main layout wrapper (Header + Footer)
+    │   │   ├── Header.tsx    # Top navigation
+    │   │   └── Footer.tsx    # Bottom footer
+    │   │
+    │   ├── home/             # Home page sections
+    │   │   ├── Hero.tsx      # Hero section with intro
+    │   │   ├── CompanyLogos.tsx
+    │   │   ├── WorkExperience.tsx  # Experience section with projects
+    │   │   ├── Education.tsx
+    │   │   └── TechStack.tsx
+    │   │
+    │   ├── ui/               # shadcn-ui components (buttons, dialogs, etc.)
+    │   │   └── [many component files]
+    │   │
+    │   └── gamification/     # (Currently empty - was removed)
+    │
+    ├── hooks/                # Custom React hooks
+    │   ├── use-mobile.tsx    # Detects mobile screen size
+    │   └── use-toast.ts      # Toast notification hook
+    │
+    ├── lib/                  # Utility functions
+    │   └── utils.ts          # Helper functions (e.g., cn for className merging)
+    │
+    └── contexts/             # React Context providers (currently empty)
+
+```
+
+## Key Technologies
+
+### TypeScript
+- Configuration: Relaxed strictness (`noImplicitAny: false`, `strictNullChecks: false`)
+- Path aliases: `@/*` maps to `./src/*`
+- Types are erased at runtime (compile-time only checking)
+
+### React
+- Version: 18.3.1
+- Uses functional components (no class components)
+- Hooks for state management: `useState`, `useEffect`, custom hooks
+- Component composition pattern
+
+### Vite
+- Build tool and dev server
+- Dev server runs on port 8080
+- Hot Module Replacement (HMR) enabled
+- Build output goes to `dist/` folder
+- Uses `@vitejs/plugin-react-swc` for fast compilation
+
+### Tailwind CSS
+- Utility-first CSS framework
+- Configuration in `tailwind.config.ts`
+- Uses CSS variables for theming (`--background`, `--foreground`, etc.)
+- Classes like `py-24`, `border-b`, `text-muted-foreground`
+
+### Framer Motion
+- Animation library used throughout
+- Common pattern: `initial={{ opacity: 0, y: 20 }}`, `animate={{ opacity: 1, y: 0 }}`
+- Used in Hero, WorkExperience, Education, TechStack components
+
+### React Router
+- Client-side routing (no page reloads)
+- BrowserRouter wraps the app
+- Routes defined in App.tsx
+- Current routes: `/` (Index), `*` (NotFound)
+
+### shadcn-ui
+- Component library built on Radix UI
+- Components in `src/components/ui/`
+- Uses Radix UI primitives for accessibility
+
+## Component Patterns
+
+### Standard Component Structure
+```typescript
+import { motion } from 'framer-motion';
+import { SomeIcon } from 'lucide-react';
+
+export const ComponentName = () => {
+  return (
+    <section className="py-24 border-b border-border">
+      <div className="container mx-auto px-6">
+        {/* Content */}
+      </div>
+    </section>
+  );
+};
+```
+
+### Layout Pattern
+- All pages use `<Layout>` wrapper from `components/layout/Layout.tsx`
+- Layout provides Header and Footer automatically
+- Content goes as `children` prop
+
+### Animation Pattern
+- Use Framer Motion for animations
+- Typical pattern: fade in + slide up
+  ```typescript
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+  >
+  ```
+
+### Styling Pattern
+- Use Tailwind utility classes
+- Container pattern: `container mx-auto px-6`
+- Section spacing: `py-24` (vertical padding)
+- Border between sections: `border-b border-border`
+- Responsive: `md:text-7xl` (medium screens and up)
+
+## Routing Structure
+
+- `/` → Index page (home)
+- `*` → NotFound page (404)
+- All routing is client-side (React Router)
+- No server-side routes needed
+
+## Build & Deployment
+
+### Development
+```bash
+npm run dev      # Start dev server on http://localhost:8080
+```
+
+### Production
+```bash
+npm run build    # Build to dist/ folder
+npm run preview  # Preview production build
+```
+
+### Deployment
+- Configured for Vercel (vercel.json exists)
+- Static site - just upload `dist/` folder contents
+- No server needed - purely static files
+
+## Import Conventions
+
+- Use path alias `@/` for src imports: `import { X } from '@/components/...'`
+- Absolute imports preferred over relative (`../../`)
+- UI components: `@/components/ui/[component]`
+- Layout: `@/components/layout/[component]`
+- Pages: `@/pages/[page]`
+
+## TypeScript Conventions
+
+- Use interfaces for props: `interface ComponentProps { ... }`
+- Optional props use `?:` syntax
+- Use `ReactNode` for children props
+- Export default for pages, named exports for components
+- No strict null checks (permissive typing)
+
+## CSS/Theming
+
+- CSS variables defined in `index.css` via `:root`
+- Variables like `--background`, `--foreground`, `--muted-foreground`, `--border`
+- Tailwind uses these via theme colors
+- Dark/light mode support via CSS variables
+
+## Common Patterns to Follow
+
+1. **Section Components**: Use semantic HTML (`<section>`), consistent padding (`py-24`), borders between sections
+2. **Motion Components**: Use Framer Motion for entrance animations
+3. **Responsive Design**: Use Tailwind responsive prefixes (`md:`, `lg:`)
+4. **Container**: Always use `container mx-auto px-6` for content width
+5. **Icons**: Use `lucide-react` for icons (already installed)
+6. **Buttons**: Use shadcn Button component from `@/components/ui/button`
+
+## Important Notes
+
+- **No backend**: This is a static site - no API calls, no database, no server logic
+- **No state management library**: Only React's built-in state and Context API (if needed)
+- **Static content**: All content is hardcoded in components (work experience, education, etc.)
+- **Port 8080**: Dev server runs on port 8080 (configured in vite.config.ts)
+- **Path alias**: Always use `@/` for imports from src folder
+
+## When Adding New Features
+
+1. Create components in appropriate folders (`components/home/` for home page sections)
+2. Import using `@/` alias
+3. Add animations with Framer Motion
+4. Use Tailwind for styling
+5. Follow existing component patterns
+6. Export as named export for components, default for pages
+7. Use TypeScript interfaces for props
+
+## Common Commands
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
+
+## Key Files to Modify
+
+- **Content changes**: Edit components in `src/components/home/`
+- **New pages**: Add to `src/pages/` and add route in `App.tsx`
+- **Styling**: Modify Tailwind classes or `src/index.css`
+- **Config**: `vite.config.ts`, `tailwind.config.ts`, `tsconfig.json`
+- **Deployment**: `vercel.json`
+
