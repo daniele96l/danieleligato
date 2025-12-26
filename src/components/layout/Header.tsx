@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,16 +27,7 @@ export const Header = () => {
         {/* Social Links */}
         <div className="flex items-center gap-2">
           <a
-            href="https://github.com/daniele96l"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="GitHub"
-          >
-            <Github className="w-4 h-4" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/its-me-dani/"
+            href="https://www.linkedin.com/in/daniele-ligato/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 text-muted-foreground hover:text-foreground transition-colors"

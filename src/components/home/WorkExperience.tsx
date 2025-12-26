@@ -15,7 +15,7 @@ const experiences = [
     period: 'Feb 2025 - Present',
     location: '',
     highlights: [
-      'Built an investment analysis platform serving 17,000+ monthly active users across Europe',
+      'Built an investment analysis platform serving 20,000+ monthly active users across Europe',
       'Developed full-stack application: Python/Flask backend, Dash interactive frontend, Firebase database',
       'Integrated LLM OpenAI-powered chatbot with RAG system to provide investment guidance',
     ],
@@ -34,11 +34,11 @@ const experiences = [
     award: true,
     projects: [
       {
-        title: 'Energy Price & Load Forecasting',
+        title: 'Project 1',
         subtitle: 'Battery Storage Optimization',
         problem: 'Forecast electricity prices and grid load to optimize when to charge client batteries — buying and storing energy when prices are low, then using or selling when prices peak. This maximizes cost savings and revenue for battery storage assets.',
         approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: day-ahead market prices, load forecasts, and planned unavailable capacity.',
-        techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
+        techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX'],
         features: [
           'Weather: temperature trends, precipitation, hot/cold days',
           'Lagged variables & rolling averages',
@@ -47,14 +47,10 @@ const experiences = [
           'High day-ahead market spreads = high opportunity for battery arbitrage',
           'Simpler models outperformed complex ones — avoiding overtraining was key',
         ],
-        links: [
-          { label: 'FFE Project', url: 'https://www.ffe.de/projekte/preisprognose-primaerregelleistung/' },
-          { label: 'Research Paper', url: 'https://www.econstor.eu/bitstream/10419/230238/1/for.2693.pdf' },
-        ],
       },
       {
-        title: 'Sales Forecasting',
-        subtitle: 'T-Mobile Project of the Year 🏆',
+        title: 'Project 2',
+        subtitle: 'Best AI in Finance Project of the Year 🏆',
         problem: 'Forecast 30,000+ time series across all product categories and regions with hierarchical consistency.',
         approach: 'Used an ensemble of 9 statistical models (ARIMA, ETS, Theta, etc.) for top-level aggregates where accuracy matters most, and LightGBM for the thousands of low-level time series where speed is critical. Hierarchical reconciliation ensures forecasts sum correctly across all levels.',
         techStack: ['Python', 'LightGBM', 'StatsForecast', 'GCP', 'Docker', 'CI/CD'],
@@ -65,6 +61,12 @@ const experiences = [
           'Achieved 98% precision on revenue forecasts',
         ],
         isAward: true,
+        links: [
+          { 
+            label: 'View Award Announcement on LinkedIn', 
+            url: 'https://www.linkedin.com/feed/update/urn:li:activity:7386673256977608704/' 
+          },
+        ],
       },
     ],
   },
