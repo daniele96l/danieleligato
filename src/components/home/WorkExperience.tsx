@@ -37,16 +37,14 @@ const experiences = [
         title: 'Energy Price & Load Forecasting',
         subtitle: 'Battery Storage Optimization',
         problem: 'Forecast electricity prices and grid load to optimize when to charge client batteries — buying and storing energy when prices are low, then using or selling when prices peak. This maximizes cost savings and revenue for battery storage assets.',
-        approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: day-ahead market prices, German-Austrian & French market prices, load forecasts, and planned unavailable capacity.',
+        approach: 'Built an ANN with expanding training window that outperformed SARIMAX and naive forecasts. Incorporated exogenous factors: day-ahead market prices, load forecasts, and planned unavailable capacity.',
         techStack: ['Python', 'LSTM', 'ANN', 'ARIMA', 'SARIMAX', 'TensorFlow'],
         features: [
           'Weather: temperature trends, precipitation, hot/cold days',
           'Lagged variables & rolling averages',
-          'Cross-market price spreads',
         ],
         keyInsights: [
           'High day-ahead market spreads = high opportunity for battery arbitrage',
-          'Flexibility in storage scenarios reduces price spreads by 30%+',
           'Simpler models outperformed complex ones — avoiding overtraining was key',
         ],
         links: [
