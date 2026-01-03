@@ -31,21 +31,21 @@ export function ChatInput({
     };
 
     return (
-        <div className="flex gap-2 items-end p-4 border-t bg-background">
+        <div className="flex gap-2 items-end p-3 md:p-4 border-t bg-background">
             <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
                 disabled={disabled}
-                className="min-h-[44px] max-h-[120px] resize-none"
+                className="min-h-[40px] md:min-h-[44px] max-h-[100px] md:max-h-[120px] resize-none text-sm"
                 rows={1}
             />
             <Button
                 onClick={handleSend}
                 disabled={disabled || !input.trim()}
                 size="icon"
-                className="h-[44px] w-[44px] shrink-0"
+                className="h-[40px] w-[40px] md:h-[44px] md:w-[44px] shrink-0"
             >
                 <Send className="h-4 w-4" />
             </Button>
