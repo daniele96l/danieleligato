@@ -31,7 +31,7 @@ export function RagChatbot() {
                     'bg-gradient-to-br from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700',
                     'transition-all duration-300 ease-in-out',
                     'hover:scale-110 focus:scale-110',
-                    'z-50',
+                    'z-[9999]',
                     isOpen && 'scale-95'
                 )}
                 size="icon"
@@ -50,7 +50,7 @@ export function RagChatbot() {
                     'h-[calc(100vh-8rem)] md:h-[600px] max-h-[600px]',
                     'shadow-2xl border-2',
                     'transition-all duration-300 ease-in-out',
-                    'z-50 flex flex-col',
+                    'z-[9999] flex flex-col',
                     'bg-background',
                     isOpen
                         ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
