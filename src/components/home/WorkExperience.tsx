@@ -23,7 +23,7 @@ const experiences = [
   {
     title: 'Medior Data Scientist',
     company: 'T-Mobile',
-    period: 'Jan 2023 - Present',
+    period: 'Jan 2023 - Mar 2026',
     location: 'Brno, Czech Republic',
     highlights: [
       'Forecasting Time series data with ML and Statistical models (Arima, Xgboost…)',
