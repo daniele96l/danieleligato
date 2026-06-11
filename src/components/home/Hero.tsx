@@ -62,7 +62,7 @@ export const Hero = () => {
             className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed"
           >
             Italian engineer with a Master's from Polytechnic of Milan, currently building ML models 
-            at T-Mobile (and winning awards for it 🏆). I also run Backtes.to, a fintech platform 
+            at Enverus. I also run Backtes.to, a fintech platform 
             serving 20k+ users. Always up for interesting collaborations!
           </motion.p>
 
