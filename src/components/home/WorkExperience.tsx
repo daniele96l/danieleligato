@@ -10,6 +10,17 @@ import {
 
 const experiences = [
   {
+    title: 'Data Scientist',
+    company: 'Enverus',
+    period: 'May 2026 - Present · 2 mos',
+    location: 'Brno, South Moravia, Czechia',
+    highlights: [
+      'Building production ML pipelines for subsurface analytics in the energy sector',
+      'Develop and maintain automated well placement and economic modeling workflows that process millions of completion and production records across US unconventional plays',
+      'Running on Azure Data Lake at scale',
+    ],
+  },
+  {
     title: 'AI Founder & Lead Developer',
     company: 'Backtes.to - Financial Analysis SaaS',
     period: 'Feb 2025 - Present',
@@ -23,7 +34,7 @@ const experiences = [
   {
     title: 'Medior Data Scientist',
     company: 'T-Mobile',
-    period: 'Jan 2023 - Present',
+    period: 'Jan 2023 - Mar 2026',
     location: 'Brno, Czech Republic',
     highlights: [
       'Forecasting Time series data with ML and Statistical models (Arima, Xgboost…)',
