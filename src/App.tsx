@@ -13,7 +13,6 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <RagChatbot />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
