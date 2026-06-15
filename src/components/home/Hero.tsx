@@ -101,7 +101,7 @@ export const Hero = () => {
           {[...techStack, ...techStack].map((tech, index) => (
             <span
               key={index}
-              className="flex-shrink-0 px-6 py-2 mx-2 text-sm text-muted-foreground border border-border rounded-full whitespace-nowrap"
+              className="flex-shrink-0 px-6 py-2 mx-2 text-sm bg-muted text-foreground rounded-full whitespace-nowrap"
             >
               {tech}
             </span>
