@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export const IsolineBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
+  const mouseRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>();
 
   useEffect(() => {
@@ -23,19 +23,16 @@ export const IsolineBackground = () => {
       canvas.style.width = width + 'px';
       canvas.style.height = height + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      mouseRef.current.x = mouseRef.current.tx = width / 2;
-      mouseRef.current.y = mouseRef.current.ty = height / 2;
     };
     resize();
     window.addEventListener('resize', resize);
 
     const onMove = (e: MouseEvent) => {
-      mouseRef.current.tx = e.clientX;
-      mouseRef.current.ty = e.clientY;
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
     };
     window.addEventListener('mousemove', onMove);
 
-    // Read primary color from CSS variable
     const styles = getComputedStyle(document.documentElement);
     const primary = styles.getPropertyValue('--primary').trim() || '220 90% 56%';
     const foreground = styles.getPropertyValue('--foreground').trim() || '0 0% 10%';
@@ -43,15 +40,13 @@ export const IsolineBackground = () => {
     let t = 0;
 
     const draw = () => {
-      const m = mouseRef.current;
-      m.x += (m.tx - m.x) * 0.08;
-      m.y += (m.ty - m.y) * 0.08;
       t += 0.003;
-
       ctx.clearRect(0, 0, width, height);
 
-      const cx = m.x;
-      const cy = m.y;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
       const rings = 18;
       const maxR = Math.hypot(width, height) * 0.9;
 
@@ -65,15 +60,26 @@ export const IsolineBackground = () => {
         const segs = 120;
         for (let s = 0; s <= segs; s++) {
           const a = (s / segs) * Math.PI * 2;
-          // Wobble the ring with low-frequency noise-ish trig
           const wob =
             Math.sin(a * 3 + t * 1.5 + i * 0.4) * 8 +
             Math.cos(a * 5 - t + i * 0.7) * 5;
           const r = baseR + wob;
           const x = cx + Math.cos(a) * r;
           const y = cy + Math.sin(a) * r * 0.85;
-          if (s === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+
+          // Cursor distortion: lines near the mouse get extra wiggle
+          const dx = x - mx;
+          const dy = y - my;
+          const dist = Math.hypot(dx, dy);
+          const falloff = Math.exp(-dist * dist / (280 * 280));
+          const cursorWiggle = falloff * 30 * Math.sin(t * 4 + a * 6 + i * 0.5);
+
+          const rDistorted = r + cursorWiggle;
+          const xDistorted = cx + Math.cos(a) * rDistorted;
+          const yDistorted = cy + Math.sin(a) * rDistorted * 0.85;
+
+          if (s === 0) ctx.moveTo(xDistorted, yDistorted);
+          else ctx.lineTo(xDistorted, yDistorted);
         }
         ctx.closePath();
         ctx.lineWidth = isAccent ? 1.1 : 0.7;
