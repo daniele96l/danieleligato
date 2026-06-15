@@ -46,7 +46,7 @@ export const Hero = () => {
               <span className="text-sm text-muted-foreground">Monthly Active Users</span>
             </div>
             <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-lg border border-border">
-              <span className="text-2xl font-bold text-foreground">4+</span>
+              <span className="text-2xl font-bold text-foreground">4.8</span>
               <span className="text-sm text-muted-foreground">Years Experience</span>
             </div>
             <div className="flex items-center gap-3 px-4 py-3 bg-muted/50 rounded-lg border border-border">
