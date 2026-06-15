@@ -23,6 +23,8 @@ export const IsolineBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const ripplesRef = useRef<{ x: number; y: number; t: number; phase: number }[]>([]);
+  const activeRipplesRef = useRef<{ x: number; y: number; t: number; phase: number }[]>([]);
   const rafRef = useRef<number>();
 
   useEffect(() => {
@@ -58,6 +60,16 @@ export const IsolineBackground = () => {
     };
     window.addEventListener('mousemove', onMove);
 
+    const onClick = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+
+      ripplesRef.current.push({ x, y, t: 0, phase: Math.random() * Math.PI * 2 });
+    };
+    window.addEventListener('mousedown', onClick);
+
     const styles = getComputedStyle(document.documentElement);
     const primary = styles.getPropertyValue('--primary').trim() || '220 90% 56%';
     const foreground = styles.getPropertyValue('--foreground').trim() || '0 0% 10%';
@@ -80,6 +92,17 @@ export const IsolineBackground = () => {
       const falloff = Math.exp(-(dx * dx + dy * dy) / (320 * 320));
       v += falloff * 0.55 * Math.sin(t * 2.5 + x * 0.02 + y * 0.015);
 
+      for (const ripple of activeRipplesRef.current) {
+        const rdx = x - ripple.x;
+        const rdy = y - ripple.y;
+        const dist = Math.hypot(rdx, rdy);
+        const radius = ripple.t * 320;
+        const ringDist = Math.abs(dist - radius);
+        const ring = Math.exp(-(ringDist * ringDist) / (55 * 55));
+        const fade = 1 - ripple.t;
+        v += ring * fade * 1.4 * Math.sin(dist * 0.04 - ripple.t * 10 + ripple.phase);
+      }
+
       return v;
     };
 
@@ -91,6 +114,14 @@ export const IsolineBackground = () => {
 
     const draw = () => {
       t += 0.001;
+
+      const ripples = ripplesRef.current;
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        ripples[i].t += 0.008;
+        if (ripples[i].t >= 1) ripples.splice(i, 1);
+      }
+      activeRipplesRef.current = ripples.slice();
+
       ctx.clearRect(0, 0, width, height);
 
       const cols = Math.ceil(width / cellSize) + 1;
@@ -163,6 +194,7 @@ export const IsolineBackground = () => {
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mousedown', onClick);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
