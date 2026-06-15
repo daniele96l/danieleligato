@@ -1,9 +1,11 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
+import { IsolineBackground } from './IsolineBackground';
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border py-12">
-      <div className="container mx-auto px-6">
+    <footer className="relative border-t border-border py-12">
+      <IsolineBackground />
+      <div className="container mx-auto px-6 relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start gap-1">
             <span className="font-heading font-semibold">
