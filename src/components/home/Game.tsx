@@ -89,7 +89,6 @@ export const Game = ({ open, onOpenChange }: Props) => {
         ctx.lineTo(W, y);
         ctx.stroke();
       }
-_connect
 
       // Window silhouette on the left side
       ctx.fillStyle = 'rgba(0,0,0,0.03)';
