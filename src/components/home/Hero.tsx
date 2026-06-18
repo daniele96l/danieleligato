@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FlappyDani } from './FlappyDani';
+import { Game } from './Game';
 
 const techStack = [
   'Python', 'SQL', 'C#', 'Scikit-learn', 'PyTorch', 'Keras', 
