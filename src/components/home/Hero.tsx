@@ -89,9 +89,18 @@ export const Hero = () => {
                 📧 Contact
               </a>
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => setGameOpen(true)}
+              className="group"
+            >
+              🐤 Play Flappy Dani
+            </Button>
           </motion.div>
         </div>
       </div>
+      <FlappyDani open={gameOpen} onOpenChange={setGameOpen} />
 
       {/* Sliding Tech Stack */}
       <motion.div
