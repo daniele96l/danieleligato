@@ -95,7 +95,7 @@ export const Hero = () => {
               onClick={() => setGameOpen(true)}
               className="group"
             >
-              🐤 Play Flappy Dani
+              🎮 Game
             </Button>
           </motion.div>
         </div>
