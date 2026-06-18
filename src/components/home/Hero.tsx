@@ -10,6 +10,7 @@ const techStack = [
 ];
 
 export const Hero = () => {
+  const [gameOpen, setGameOpen] = useState(false);
   return (
     <section className="py-24 md:py-32 border-b border-border">
       <div className="container mx-auto px-6">
