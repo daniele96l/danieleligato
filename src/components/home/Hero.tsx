@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { FlappyDani } from './FlappyDani';
 
 const techStack = [
   'Python', 'SQL', 'C#', 'Scikit-learn', 'PyTorch', 'Keras', 
@@ -8,6 +10,7 @@ const techStack = [
 ];
 
 export const Hero = () => {
+  const [gameOpen, setGameOpen] = useState(false);
   return (
     <section className="py-24 md:py-32 border-b border-border">
       <div className="container mx-auto px-6">
@@ -86,9 +89,18 @@ export const Hero = () => {
                 📧 Contact
               </a>
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => setGameOpen(true)}
+              className="group"
+            >
+              🐤 Play Flappy Dani
+            </Button>
           </motion.div>
         </div>
       </div>
+      <FlappyDani open={gameOpen} onOpenChange={setGameOpen} />
 
       {/* Sliding Tech Stack */}
       <motion.div
