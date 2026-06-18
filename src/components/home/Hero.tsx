@@ -100,7 +100,7 @@ export const Hero = () => {
           </motion.div>
         </div>
       </div>
-      <FlappyDani open={gameOpen} onOpenChange={setGameOpen} />
+      <Game open={gameOpen} onOpenChange={setGameOpen} />
 
       {/* Sliding Tech Stack */}
       <motion.div
