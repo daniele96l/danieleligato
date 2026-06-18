@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FlappyDani } from './FlappyDani';
+import { Game } from './Game';
 
 const techStack = [
   'Python', 'SQL', 'C#', 'Scikit-learn', 'PyTorch', 'Keras', 
@@ -95,12 +95,12 @@ export const Hero = () => {
               onClick={() => setGameOpen(true)}
               className="group"
             >
-              🐤 Play Flappy Dani
+              🎮 Game
             </Button>
           </motion.div>
         </div>
       </div>
-      <FlappyDani open={gameOpen} onOpenChange={setGameOpen} />
+      <Game open={gameOpen} onOpenChange={setGameOpen} />
 
       {/* Sliding Tech Stack */}
       <motion.div
