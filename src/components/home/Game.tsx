@@ -53,6 +53,7 @@ export const Game = ({ open, onOpenChange }: Props) => {
     vy: 0,
     pipes: [] as Pipe[],
     particles: [] as Particle[],
+    jets: [] as Jet[],
     flashes: [] as Flash[],
     shake: 0,
     tick: 0,
@@ -60,16 +61,33 @@ export const Game = ({ open, onOpenChange }: Props) => {
   });
 
   const reset = useCallback(() => {
-    gameRef.current = { y: H / 2, vy: 0, pipes: [], particles: [], flashes: [], shake: 0, tick: 0, score: 0 };
+    gameRef.current = { y: H / 2, vy: 0, pipes: [], particles: [], jets: [], flashes: [], shake: 0, tick: 0, score: 0 };
     setScore(0);
     setState('ready');
+  }, []);
+
+  const fireJet = useCallback(() => {
+    const g = gameRef.current;
+    const snippets = ['{}', '()', '=>', '0x', '01', '++', '//', '<>', ';;', 'fn'];
+    for (let i = 0; i < 7; i++) {
+      g.jets.push({
+        x: 78 + (Math.random() - 0.5) * 4,
+        y: g.y + 12 + Math.random() * 4,
+        vx: -1.2 - Math.random() * 1.4,
+        vy: 1.5 + Math.random() * 2.2,
+        life: 0,
+        max: 26 + Math.random() * 14,
+        text: snippets[Math.floor(Math.random() * snippets.length)],
+      });
+    }
   }, []);
 
   const flap = useCallback(() => {
     if (state === 'dead') { reset(); return; }
     if (state === 'ready') setState('playing');
     gameRef.current.vy = FLAP;
-  }, [state, reset]);
+    fireJet();
+  }, [state, reset, fireJet]);
 
   // Show start screen each time dialog opens
   useEffect(() => {
