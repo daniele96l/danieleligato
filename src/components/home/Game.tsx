@@ -229,6 +229,12 @@ export const Game = ({ open, onOpenChange }: Props) => {
           pt.life++;
         });
         g.particles = g.particles.filter(pt => pt.life < pt.max);
+        g.jets.forEach(j => {
+          j.x += j.vx; j.y += j.vy;
+          j.vy += 0.05; j.vx *= 0.99;
+          j.life++;
+        });
+        g.jets = g.jets.filter(j => j.life < j.max && j.y < H - GROUND);
         g.flashes.forEach(f => f.life--);
         g.flashes = g.flashes.filter(f => f.life > 0);
         if (g.shake > 0) g.shake -= 0.6;
