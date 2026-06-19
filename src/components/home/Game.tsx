@@ -32,7 +32,8 @@ const CODE_LINES = [
 ];
 
 type Pipe = { x: number; gapY: number; label: string; passed: boolean; caught: boolean };
-type Particle = { x: number; y: number; vx: number; vy: number; life: number; max: number; char: string };
+type Particle = { x: number; y: number; vx: number; vy: number; life: number; max: number; char: string; color?: string };
+type Jet = { x: number; y: number; vx: number; vy: number; life: number; max: number; text: string };
 type Flash = { x: number; y: number; life: number };
 
 interface Props {
@@ -52,6 +53,7 @@ export const Game = ({ open, onOpenChange }: Props) => {
     vy: 0,
     pipes: [] as Pipe[],
     particles: [] as Particle[],
+    jets: [] as Jet[],
     flashes: [] as Flash[],
     shake: 0,
     tick: 0,
@@ -59,16 +61,33 @@ export const Game = ({ open, onOpenChange }: Props) => {
   });
 
   const reset = useCallback(() => {
-    gameRef.current = { y: H / 2, vy: 0, pipes: [], particles: [], flashes: [], shake: 0, tick: 0, score: 0 };
+    gameRef.current = { y: H / 2, vy: 0, pipes: [], particles: [], jets: [], flashes: [], shake: 0, tick: 0, score: 0 };
     setScore(0);
     setState('ready');
+  }, []);
+
+  const fireJet = useCallback(() => {
+    const g = gameRef.current;
+    const snippets = ['{}', '()', '=>', '0x', '01', '++', '//', '<>', ';;', 'fn'];
+    for (let i = 0; i < 7; i++) {
+      g.jets.push({
+        x: 78 + (Math.random() - 0.5) * 4,
+        y: g.y + 12 + Math.random() * 4,
+        vx: -1.2 - Math.random() * 1.4,
+        vy: 1.5 + Math.random() * 2.2,
+        life: 0,
+        max: 26 + Math.random() * 14,
+        text: snippets[Math.floor(Math.random() * snippets.length)],
+      });
+    }
   }, []);
 
   const flap = useCallback(() => {
     if (state === 'dead') { reset(); return; }
     if (state === 'ready') setState('playing');
     gameRef.current.vy = FLAP;
-  }, [state, reset]);
+    fireJet();
+  }, [state, reset, fireJet]);
 
   // Show start screen each time dialog opens
   useEffect(() => {
@@ -210,6 +229,12 @@ export const Game = ({ open, onOpenChange }: Props) => {
           pt.life++;
         });
         g.particles = g.particles.filter(pt => pt.life < pt.max);
+        g.jets.forEach(j => {
+          j.x += j.vx; j.y += j.vy;
+          j.vy += 0.05; j.vx *= 0.99;
+          j.life++;
+        });
+        g.jets = g.jets.filter(j => j.life < j.max && j.y < H - GROUND);
         g.flashes.forEach(f => f.life--);
         g.flashes = g.flashes.filter(f => f.life > 0);
         if (g.shake > 0) g.shake -= 0.6;
@@ -296,6 +321,30 @@ export const Game = ({ open, onOpenChange }: Props) => {
       ctx.rotate(tilt);
       ctx.fillStyle = 'rgba(0,0,0,0.4)';
       ctx.beginPath(); ctx.ellipse(2, 18, 14, 4, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Jetpack (on Dani's back / underside)
+      ctx.fillStyle = '#52525b';
+      ctx.fillRect(-14, 6, 10, 14);
+      ctx.fillStyle = '#71717a';
+      ctx.fillRect(-14, 6, 10, 3);
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(-12, 8, 2, 2);
+      // nozzle
+      ctx.fillStyle = '#27272a';
+      ctx.fillRect(-12, 20, 6, 3);
+      // idle flame when thrusting (vy negative = just flapped)
+      if (g.vy < 0) {
+        const flick = 4 + Math.random() * 4;
+        ctx.fillStyle = '#facc15';
+        ctx.beginPath();
+        ctx.moveTo(-12, 23); ctx.lineTo(-9, 23 + flick); ctx.lineTo(-6, 23);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.moveTo(-11, 23); ctx.lineTo(-9, 23 + flick * 0.6); ctx.lineTo(-7, 23);
+        ctx.closePath(); ctx.fill();
+      }
+
       // body
       ctx.fillStyle = '#fafafa';
       ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill();
@@ -315,6 +364,17 @@ export const Game = ({ open, onOpenChange }: Props) => {
       ctx.fillText('D', 0, 1);
       ctx.textBaseline = 'alphabetic';
       ctx.restore();
+
+      // Jet trail (code lines fired by jetpack)
+      g.jets.forEach(j => {
+        const t = 1 - j.life / j.max;
+        ctx.globalAlpha = Math.max(0, t);
+        ctx.fillStyle = '#22c55e';
+        ctx.font = `bold ${9 + t * 4}px ui-monospace, monospace`;
+        ctx.textAlign = 'left';
+        ctx.fillText(j.text, j.x, j.y);
+      });
+      ctx.globalAlpha = 1;
 
       // Particles
       g.particles.forEach(pt => {
