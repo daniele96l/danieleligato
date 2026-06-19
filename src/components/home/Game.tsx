@@ -321,6 +321,30 @@ export const Game = ({ open, onOpenChange }: Props) => {
       ctx.rotate(tilt);
       ctx.fillStyle = 'rgba(0,0,0,0.4)';
       ctx.beginPath(); ctx.ellipse(2, 18, 14, 4, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Jetpack (on Dani's back / underside)
+      ctx.fillStyle = '#52525b';
+      ctx.fillRect(-14, 6, 10, 14);
+      ctx.fillStyle = '#71717a';
+      ctx.fillRect(-14, 6, 10, 3);
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(-12, 8, 2, 2);
+      // nozzle
+      ctx.fillStyle = '#27272a';
+      ctx.fillRect(-12, 20, 6, 3);
+      // idle flame when thrusting (vy negative = just flapped)
+      if (g.vy < 0) {
+        const flick = 4 + Math.random() * 4;
+        ctx.fillStyle = '#facc15';
+        ctx.beginPath();
+        ctx.moveTo(-12, 23); ctx.lineTo(-9, 23 + flick); ctx.lineTo(-6, 23);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.moveTo(-11, 23); ctx.lineTo(-9, 23 + flick * 0.6); ctx.lineTo(-7, 23);
+        ctx.closePath(); ctx.fill();
+      }
+
       // body
       ctx.fillStyle = '#fafafa';
       ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill();
@@ -340,6 +364,17 @@ export const Game = ({ open, onOpenChange }: Props) => {
       ctx.fillText('D', 0, 1);
       ctx.textBaseline = 'alphabetic';
       ctx.restore();
+
+      // Jet trail (code lines fired by jetpack)
+      g.jets.forEach(j => {
+        const t = 1 - j.life / j.max;
+        ctx.globalAlpha = Math.max(0, t);
+        ctx.fillStyle = '#22c55e';
+        ctx.font = `bold ${9 + t * 4}px ui-monospace, monospace`;
+        ctx.textAlign = 'left';
+        ctx.fillText(j.text, j.x, j.y);
+      });
+      ctx.globalAlpha = 1;
 
       // Particles
       g.particles.forEach(pt => {
