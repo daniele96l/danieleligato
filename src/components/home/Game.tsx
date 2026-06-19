@@ -32,7 +32,8 @@ const CODE_LINES = [
 ];
 
 type Pipe = { x: number; gapY: number; label: string; passed: boolean; caught: boolean };
-type Particle = { x: number; y: number; vx: number; vy: number; life: number; max: number; char: string };
+type Particle = { x: number; y: number; vx: number; vy: number; life: number; max: number; char: string; color?: string };
+type Jet = { x: number; y: number; vx: number; vy: number; life: number; max: number; text: string };
 type Flash = { x: number; y: number; life: number };
 
 interface Props {
