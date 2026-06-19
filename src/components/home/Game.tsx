@@ -246,11 +246,11 @@ export const Game = ({ open, onOpenChange }: Props) => {
         ctx.font = '9px ui-monospace, monospace';
         ctx.textAlign = 'left';
         for (let yy = 32; yy < p.gapY - 14; yy += 12) {
-          const len = 4 + ((yy + p.x) % 7);
+          const len = 4 + Math.abs(Math.floor(yy + p.x)) % 7;
           ctx.fillText('░'.repeat(len), p.x + 4, yy);
         }
         for (let yy = p.gapY + PIPE_GAP + 16; yy < H - GROUND - 4; yy += 12) {
-          const len = 4 + ((yy + p.x) % 7);
+          const len = 4 + Math.abs(Math.floor(yy + p.x)) % 7;
           ctx.fillText('░'.repeat(len), p.x + 4, yy);
         }
 
