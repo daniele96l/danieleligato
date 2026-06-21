@@ -253,6 +253,16 @@ export const WorkExperience = () => {
                 <p className="text-sm text-muted-foreground">
                   {exp.period} {exp.location && `• ${exp.location}`}
                 </p>
+                {'link' in exp && exp.link && (
+                  <a
+                    href={exp.link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-2 text-xs bg-foreground text-background px-3 py-1.5 rounded hover:bg-foreground/80 transition-colors"
+                  >
+                    {exp.link.label} <span className="text-[10px]">↗</span>
+                  </a>
+                )}
               </div>
 
               <ul className="mt-4 space-y-2">
