@@ -25,6 +25,7 @@ const experiences = [
     company: 'Backtes.to - Financial Analysis SaaS',
     period: 'Feb 2025 - Present',
     location: '',
+    link: { label: 'Visit Backtes.to', url: 'https://www.backtes.to/' },
     highlights: [
       'Built an investment analysis platform serving 20,000+ monthly active users across Europe',
       'Developed full-stack application: Python/Flask backend, Dash interactive frontend, Firebase database',
@@ -252,6 +253,16 @@ export const WorkExperience = () => {
                 <p className="text-sm text-muted-foreground">
                   {exp.period} {exp.location && `• ${exp.location}`}
                 </p>
+                {'link' in exp && exp.link && (
+                  <a
+                    href={exp.link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 mt-2 text-xs bg-foreground text-background px-3 py-1.5 rounded hover:bg-foreground/80 transition-colors"
+                  >
+                    {exp.link.label} <span className="text-[10px]">↗</span>
+                  </a>
+                )}
               </div>
 
               <ul className="mt-4 space-y-2">
