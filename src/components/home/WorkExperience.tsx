@@ -25,6 +25,7 @@ const experiences = [
     company: 'Backtes.to - Financial Analysis SaaS',
     period: 'Feb 2025 - Present',
     location: '',
+    link: { label: 'Visit Backtes.to', url: 'https://www.backtes.to/' },
     highlights: [
       'Built an investment analysis platform serving 20,000+ monthly active users across Europe',
       'Developed full-stack application: Python/Flask backend, Dash interactive frontend, Firebase database',
