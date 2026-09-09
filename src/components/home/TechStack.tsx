@@ -22,37 +22,37 @@ const techCategories = [
 
 export const TechStack = () => {
   return (
-    <section className="py-24 border-b border-border">
+    <section className="py-12 border-b border-border">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-6"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <Code2 className="w-5 h-5 text-muted-foreground" />
-            <h2 className="font-heading text-2xl md:text-3xl font-bold">Tech Stack</h2>
+          <div className="flex items-center gap-2 mb-0">
+            <Code2 className="w-4 h-4 text-muted-foreground" />
+            <h2 className="font-heading text-xl md:text-2xl font-bold">Tech Stack</h2>
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {techCategories.map((category, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <h3 className="font-heading text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+              <h3 className="font-heading text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                 {category.title}
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {category.items.map((item, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted transition-colors"
+                    className="px-2 py-0.5 text-xs border border-border rounded hover:bg-muted transition-colors"
                   >
                     {item}
                   </span>

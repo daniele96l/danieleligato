@@ -115,13 +115,13 @@ export const WorkExperience = () => {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-5 h-5 text-muted-foreground" />
             <h2 className="font-heading text-2xl md:text-3xl font-bold">Work Experience</h2>
           </div>
         </motion.div>
 
-        <div className="space-y-12">
+        <div className="max-w-3xl mx-auto space-y-12 text-left">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
@@ -129,10 +129,7 @@ export const WorkExperience = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative pl-6 border-l-2 border-border"
             >
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-foreground" />
-              
               <div className="mb-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="font-heading text-lg font-semibold">{exp.title}</h3>
@@ -145,7 +142,7 @@ export const WorkExperience = () => {
                           <ChevronRight className="w-3 h-3" />
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-lg">
+                      <DialogContent className="max-w-lg text-left">
                         <DialogHeader>
                           <DialogTitle className="flex items-center gap-2">
                             <Award className="w-5 h-5" />
@@ -267,9 +264,8 @@ export const WorkExperience = () => {
 
               <ul className="mt-4 space-y-2">
                 {exp.highlights.map((highlight, i) => (
-                  <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
-                    <span className="text-foreground mt-1.5">•</span>
-                    <span>{highlight}</span>
+                  <li key={i} className="text-muted-foreground text-sm">
+                    {highlight}
                   </li>
                 ))}
               </ul>
