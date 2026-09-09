@@ -1,10 +1,7 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Game } from './Game';
 
 export const Hero = () => {
-  const [gameOpen, setGameOpen] = useState(false);
   return (
     <section className="pt-32 pb-24 md:pt-44 md:pb-32 border-b border-border">
       <div className="container mx-auto px-6">
@@ -58,18 +55,9 @@ export const Hero = () => {
                 Contact
               </a>
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => setGameOpen(true)}
-              className="group"
-            >
-              🎮 Game
-            </Button>
           </motion.div>
         </div>
       </div>
-      <Game open={gameOpen} onOpenChange={setGameOpen} />
     </section>
   );
 };
