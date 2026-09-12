@@ -48,6 +48,11 @@ export const Hero = () => {
               </a>
             </Button>
             <Button size="sm" variant="outline" asChild className="rounded-full px-5">
+              <a href="#tech-stack">
+                Tech Stack
+              </a>
+            </Button>
+            <Button size="sm" variant="outline" asChild className="rounded-full px-5">
               <a 
                 href="https://www.linkedin.com/in/daniele-ligato/"
                 target="_blank"
