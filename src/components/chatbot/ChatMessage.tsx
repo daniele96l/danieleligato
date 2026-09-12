@@ -42,7 +42,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
                             : 'bg-muted text-foreground rounded-tl-sm'
                     )}
                 >
-                    <p className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                    <p className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap break-words">
                         {message.content}
                     </p>
                 </div>
