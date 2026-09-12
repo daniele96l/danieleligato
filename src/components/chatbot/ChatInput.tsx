@@ -1,7 +1,7 @@
-import React, { useState, KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, ChangeEvent } from 'react';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 
 interface ChatInputProps {
     onSend: (message: string) => void;
@@ -15,6 +15,18 @@ export function ChatInput({
     placeholder = 'Type your message...',
 }: ChatInputProps) {
     const [input, setInput] = useState('');
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const resize = () => {
+        const el = textareaRef.current;
+        if (!el) return;
+        el.style.height = 'auto';
+        el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+    };
+
+    useEffect(() => {
+        resize();
+    }, [input]);
 
     const handleSend = () => {
         if (input.trim() && !disabled) {
@@ -30,16 +42,28 @@ export function ChatInput({
         }
     };
 
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setInput(e.target.value);
+    };
+
     return (
         <div className="flex gap-2 items-end p-3 md:p-4 border-t bg-background">
-            <Textarea
+            <textarea
+                ref={textareaRef}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
                 disabled={disabled}
-                className="min-h-[40px] md:min-h-[44px] max-h-[100px] md:max-h-[120px] resize-none text-sm"
                 rows={1}
+                className={cn(
+                    'flex-1 min-h-[40px] md:min-h-[44px] max-h-[120px] resize-none overflow-y-auto',
+                    'rounded-md border border-input bg-background px-3 py-2.5 text-sm',
+                    'ring-offset-background placeholder:text-muted-foreground',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                    'disabled:cursor-not-allowed disabled:opacity-50',
+                    'leading-snug'
+                )}
             />
             <Button
                 onClick={handleSend}

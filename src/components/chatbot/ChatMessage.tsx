@@ -1,4 +1,3 @@
-import React from 'react';
 import { Message } from '@/hooks/useChatbot';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
@@ -29,16 +28,21 @@ export function ChatMessage({ message }: ChatMessageProps) {
                 )}
             </Avatar>
 
-            <div className={cn('flex flex-col', isUser ? 'items-end' : 'items-start')}>
+            <div
+                className={cn(
+                    'flex flex-col min-w-0 max-w-[min(85%,20rem)]',
+                    isUser ? 'items-end' : 'items-start'
+                )}
+            >
                 <div
                     className={cn(
-                        'rounded-2xl px-3 py-2 md:px-4 md:py-2.5 max-w-[85%] shadow-sm',
+                        'rounded-2xl px-3 py-2 md:px-4 md:py-2.5 w-fit max-w-full shadow-sm',
                         isUser
                             ? 'bg-primary text-primary-foreground rounded-tr-sm'
                             : 'bg-muted text-foreground rounded-tl-sm'
                     )}
                 >
-                    <p className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap break-words">
+                    <p className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                         {message.content}
                     </p>
                 </div>
