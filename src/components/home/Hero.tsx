@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const Hero = () => {
   return (
-    <section className="pt-32 pb-24 md:pt-44 md:pb-32 border-b border-border">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto text-center" data-mesh-collider>
+    <section className="relative min-h-screen flex flex-col justify-center border-b border-border">
+      <div className="container mx-auto px-6 flex-1 flex items-center">
+        <div className="max-w-4xl mx-auto text-center w-full py-16" data-mesh-collider>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,6 +59,23 @@ export const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      <motion.a
+        href="#tech-stack"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
+        aria-label="Scroll to tech stack"
+      >
+        <span className="text-xs uppercase tracking-wider">Explore</span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown className="w-6 h-6" />
+        </motion.span>
+      </motion.a>
     </section>
   );
 };
