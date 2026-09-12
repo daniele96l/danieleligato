@@ -23,7 +23,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
                         U
                     </AvatarFallback>
                 ) : (
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-semibold text-xs">
+                    <AvatarFallback className="bg-foreground text-background font-semibold text-xs">
                         D
                     </AvatarFallback>
                 )}

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Footer } from './Footer';
+import { RagChatbot } from '@/components/chatbot/RagChatbot';
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <div className="relative z-10">
         <Footer />
       </div>
+      <RagChatbot />
     </div>
   );
 };
