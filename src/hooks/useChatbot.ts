@@ -7,11 +7,14 @@ export interface Message {
     timestamp: Date;
 }
 
+const WELCOME =
+    "Hey — I'm Dani. Ask about Enverus, Backtes.to, T-Mobile, or anything else on my CV.";
+
 export function useChatbot() {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            content: "Hi! I'm Dani 👋 Ask me anything about my experience, projects, or skills!",
+            content: WELCOME,
             role: 'assistant',
             timestamp: new Date(),
         },
@@ -22,26 +25,32 @@ export function useChatbot() {
     const sendMessage = useCallback(async (content: string) => {
         if (!content.trim()) return;
 
-        // Add user message
+        const trimmed = content.trim();
         const userMessage: Message = {
             id: Date.now().toString(),
-            content: content.trim(),
+            content: trimmed,
             role: 'user',
             timestamp: new Date(),
         };
+
+        const historyPayload = messages
+            .filter((m) => m.id !== '1')
+            .map((m) => ({ role: m.role, content: m.content }));
 
         setMessages((prev) => [...prev, userMessage]);
         setIsLoading(true);
         setError(null);
 
         try {
-            // Call our backend API instead of OpenAI directly
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: content }),
+                body: JSON.stringify({
+                    message: trimmed,
+                    history: historyPayload,
+                }),
             });
 
             if (!response.ok) {
@@ -51,37 +60,37 @@ export function useChatbot() {
             const data = await response.json();
             const aiResponse = data.response || 'Sorry, I could not generate a response.';
 
-            // Add assistant response
-            const assistantMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                content: aiResponse,
-                role: 'assistant',
-                timestamp: new Date(),
-            };
-
-            setMessages((prev) => [...prev, assistantMessage]);
+            setMessages((prev) => [
+                ...prev,
+                {
+                    id: (Date.now() + 1).toString(),
+                    content: aiResponse,
+                    role: 'assistant',
+                    timestamp: new Date(),
+                },
+            ]);
         } catch (err) {
             console.error('Chat error:', err);
             setError('Sorry, I encountered an error. Please try again.');
-
-            // Add error message
-            const errorMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                content: 'Sorry, I encountered an error. Please try again! 😅',
-                role: 'assistant',
-                timestamp: new Date(),
-            };
-            setMessages((prev) => [...prev, errorMessage]);
+            setMessages((prev) => [
+                ...prev,
+                {
+                    id: (Date.now() + 1).toString(),
+                    content: 'Hmm, that one failed — try again in a sec.',
+                    role: 'assistant',
+                    timestamp: new Date(),
+                },
+            ]);
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [messages]);
 
     const clearMessages = useCallback(() => {
         setMessages([
             {
                 id: '1',
-                content: "Hi! I'm Dani 👋 Ask me anything about my experience, projects, or skills!",
+                content: WELCOME,
                 role: 'assistant',
                 timestamp: new Date(),
             },
@@ -97,3 +106,4 @@ export function useChatbot() {
         clearMessages,
     };
 }
+

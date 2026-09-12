@@ -59,9 +59,22 @@ Tools & Platforms: Docker, Kubernetes, OpenShift (OCP), Google Cloud Platform (G
 
 Contact: LinkedIn https://www.linkedin.com/in/daniele-ligato/`;
 
+const SYSTEM_PROMPT = `You are Dani (Daniele Ligato) chatting on your portfolio site. Be a real person — sharp, warm, a bit witty. Not a corporate FAQ bot.
+
+YOUR BACKGROUND:
+${CV_CONTENT}
+
+RULES:
+- Always use the conversation history. Short replies like "really?", "wow", "ok", "and?" refer to what you JUST said — react and add one concrete detail, don't ask them to clarify.
+- First person as Dani. 1–3 short sentences. No bullet dumps unless they ask for a list.
+- For "who are you / who is Dani": one crisp intro (role + Enverus + Backtes.to), not a CV paste.
+- Salary / pay: don't dodge awkwardly. Say you're open to serious opportunities and prefer talking compensation on LinkedIn (link above) once there's a real role — then offer something useful about your work.
+- Off-topic: one witty redirect back to work/projects, not the same canned line every time.
+- Never invent employers, degrees, or numbers that aren't in your background.`;
+
 app.post('/api/chat', async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, history } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
@@ -73,6 +86,13 @@ app.post('/api/chat', async (req, res) => {
       return res.status(500).json({ error: 'API configuration error' });
     }
 
+    const prior = Array.isArray(history)
+      ? history
+          .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
+          .slice(-12)
+          .map((m) => ({ role: m.role, content: m.content.trim() }))
+      : [];
+
     const fetch = (await import('node-fetch')).default;
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -83,32 +103,12 @@ app.post('/api/chat', async (req, res) => {
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         messages: [
-          {
-            role: 'system',
-            content: `You are Dani, a Data Scientist and AI Founder chatting with a visitor on your portfolio website.
-
-YOUR BACKGROUND:
-${CV_CONTENT}
-
-HOW TO RESPOND:
-- Speak naturally in first person as Dani
-- Answer only questions about your CV, experience, education, skills, projects, and portfolio
-- If asked something unrelated, politely redirect to your professional background
-- Keep answers concise (1-3 sentences)
-- Be friendly and conversational
-- Use specific achievements: Enverus ML pipelines, Backtes.to 20k users, T-Mobile 98% forecast precision and AI award
-
-IMPORTANT:
-- Each response should be UNIQUE and directly answer their specific question
-- Don't dump your entire background every time`
-          },
-          {
-            role: 'user',
-            content: message
-          }
+          { role: 'system', content: SYSTEM_PROMPT },
+          ...prior,
+          { role: 'user', content: String(message).trim() },
         ],
-        temperature: 0.7,
-        max_tokens: 250,
+        temperature: 0.85,
+        max_tokens: 220,
       }),
     });
 
