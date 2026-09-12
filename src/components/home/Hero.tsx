@@ -43,13 +43,8 @@ export const Hero = () => {
             className="flex flex-wrap justify-center gap-2 mb-6"
           >
             <Button size="sm" asChild className="rounded-full px-5">
-              <a href="#experience">
-                Experience
-              </a>
-            </Button>
-            <Button size="sm" variant="outline" asChild className="rounded-full px-5">
               <a href="#tech-stack">
-                Tech Stack
+                Experience & Tech Stack
               </a>
             </Button>
             <Button size="sm" variant="outline" asChild className="rounded-full px-5">
